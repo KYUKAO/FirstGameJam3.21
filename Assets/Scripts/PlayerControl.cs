@@ -113,6 +113,18 @@ public class PlayerControl : BaseUnit
     {
         if (collision.gameObject.GetComponent<FoodComponent>() != null)
         {
+            if (collision.gameObject.GetComponent<HumanComponent>() != null)
+            {
+                if (Level < 7) return;
+            }
+            if (collision.gameObject.GetComponent<MushroomComponnet>() != null)
+            {
+                if (Level < 3) return;
+            }
+            if (collision.gameObject.GetComponent<ChickenComponent>() != null)
+            {
+                if (Level < 4) return;
+            }
             var addXP = collision.gameObject.GetComponent<FoodComponent>().AddXP;
             CurrentXP=CurrentXP+ addXP;
             EventSystem.GetComponent<ElementInstantiator>().CurrentNumOfFood--;

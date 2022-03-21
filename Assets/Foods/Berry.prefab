@@ -93,6 +93,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Berry
       objectReference: {fileID: 0}
+    - target: {fileID: 3895292767812037606, guid: 14100b8e5a2556e45909db01d2460121, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 3895292767812037606, guid: 14100b8e5a2556e45909db01d2460121, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.12
+      objectReference: {fileID: 0}
     - target: {fileID: 3895292767812037609, guid: 14100b8e5a2556e45909db01d2460121, type: 3}
       propertyPath: AddXP
       value: 5

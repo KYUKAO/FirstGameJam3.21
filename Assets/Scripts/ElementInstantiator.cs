@@ -15,11 +15,17 @@ public class ElementInstantiator : MonoBehaviour
     public Transform point3;
     public Transform point4;
     public Transform point5;
+
+    public Transform point6;
+    public Transform point7;
+    public Transform point8;
     public List<Transform> FoodPoints = new List<Transform>();
+    public List<Transform> EnemyPoints = new List<Transform>();
     public GameObject EnemyPrefab;
 
     Transform enemyTransform;
     Transform foodTransform;
+    int serialNumber = 0;
     private void Start()
     {
         FoodPoints.Add(point1);
@@ -27,20 +33,30 @@ public class ElementInstantiator : MonoBehaviour
         FoodPoints.Add(point3);
         FoodPoints.Add(point4);
         FoodPoints.Add(point5);
+
+        EnemyPoints.Add(point6);
+        EnemyPoints.Add(point7);
+        EnemyPoints.Add(point8);
     }
     void Update()
     {
         if (CurrentNumOfEnemy < NumOfEnemy)
         {
-            int rand = Random.Range(0,5);
-            foodTransform = FoodPoints[rand];
-            Instantiate(EnemyPrefab, foodTransform.position,this.transform.rotation);
+            int rand = Random.Range(0, 5);
+            enemyTransform = FoodPoints[rand];
+            Instantiate(EnemyPrefab, enemyTransform.position,this.transform.rotation);
             CurrentNumOfEnemy++;
         }
         if (CurrentNumOfFood < NumOfFood)
         {
-            var serialNumber = Random.Range(0, 4);
-            Instantiate(FoodTypes[serialNumber], this.transform.position, this.transform.rotation);
+            int rand = Random.Range(0, 5);
+            foodTransform = FoodPoints[rand];
+            Instantiate(FoodTypes[serialNumber], foodTransform.position, this.transform.rotation);
+            serialNumber++;
+            if (serialNumber >= 4)
+            {
+                serialNumber = 0;
+            }
             CurrentNumOfFood++;
         }
     }
