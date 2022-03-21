@@ -27,11 +27,9 @@ public class BaseUnit : MonoBehaviour
         {
             case 1:
                 sp.sprite = sprite1;
-                Debug.Log("1");
                 return;
             case 2:
                 sp.sprite = sprite2;
-                Debug.Log("2");
                 return;
             case 3:
                 sp.sprite = sprite3;

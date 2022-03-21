@@ -10,13 +10,31 @@ public class ElementInstantiator : MonoBehaviour
     public  int NumOfEnemy;
     public  int NumOfFood;
 
+    public Transform point1;
+    public Transform point2;
+    public Transform point3;
+    public Transform point4;
+    public Transform point5;
+    public List<Transform> FoodPoints = new List<Transform>();
     public GameObject EnemyPrefab;
 
+    Transform enemyTransform;
+    Transform foodTransform;
+    private void Start()
+    {
+        FoodPoints.Add(point1);
+        FoodPoints.Add(point2);
+        FoodPoints.Add(point3);
+        FoodPoints.Add(point4);
+        FoodPoints.Add(point5);
+    }
     void Update()
     {
         if (CurrentNumOfEnemy < NumOfEnemy)
         {
-            Instantiate(EnemyPrefab, this.transform.position,this.transform.rotation);
+            int rand = Random.Range(0,5);
+            foodTransform = FoodPoints[rand];
+            Instantiate(EnemyPrefab, foodTransform.position,this.transform.rotation);
             CurrentNumOfEnemy++;
         }
         if (CurrentNumOfFood < NumOfFood)
