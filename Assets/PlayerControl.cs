@@ -8,6 +8,16 @@ public class PlayerControl : MonoBehaviour
     public float Speed;
     public float IncreaseRate;
     public float DecreaseRate;
+
+    float currentHealth = 100;
+    float maxHealth = 100f;
+
+    float currentXP = 0;
+    public float LevelXP;
+    public float LevelUpRate;
+    int level = 1;
+
+    public GameObject LoseCondition;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +27,8 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            Vector3 ms = Input.mousePosition;
+        #region MOVEMENT
+        Vector3 ms = Input.mousePosition;
             ms = Camera.main.ScreenToWorldPoint(ms);//获取鼠标相对位置
                                                     //对象的位置
             Vector3 gunPos = this.transform.position;
@@ -39,6 +50,40 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             rb.velocity = direction * Speed * (1 - DecreaseRate);
+        }
+        #endregion
+
+        #region HealthSystem
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            Die();
+        }
+        #endregion
+
+        #region LevelUp
+
+        if (currentXP >= LevelXP)
+        {
+            currentXP = 0;
+            LevelXP *= LevelUpRate;
+            level++;
+        }
+        #endregion
+    }
+    void Die()
+    {
+        Debug.Log("Dead");
+        LoseCondition.SetActive(true);
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<FoodComponent>() != null)
+        {
+            var addXP = collision.gameObject.GetComponent<FoodComponent>().AddXP;
+            currentXP=currentXP+ addXP;
+            Debug.Log(currentXP);
+            Destroy(collision.gameObject);
         }
     }
 }
