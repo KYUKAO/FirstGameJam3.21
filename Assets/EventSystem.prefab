@@ -85,7 +85,7 @@ MonoBehaviour:
   - {fileID: 7744458738810309209, guid: cf6327a7d6111724c8d9052ba4bb890b, type: 3}
   - {fileID: 2870839356098539295, guid: eba9709cf008b73469b3c29986fd9cb4, type: 3}
   CurrentNumOfEnemy: 0
-  CurrentNumOfFood: 0
+  CurrentNumOfFood: -1595
   NumOfEnemy: 4
   NumOfFood: 6
   EnemyPrefab: {fileID: 8999761467657021496, guid: 6eef5fbded8a8cc439c4135132bfe9c6, type: 3}

@@ -145,16 +145,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FoxSprties: []
-  Level: 4
+  Level: 1
   Speed: 6
-  IncreaseRate: 2
+  IncreaseRate: 1.5
   DecreaseRate: 0.8
   CurrentHealth: 100
   MaxHealth: 100
   CurrentXP: 0
-  LevelXP: 6
+  LevelXP: 100
   LevelUpRate: 2
   LoseCondition: {fileID: 0}
   HealthBar: {fileID: 0}
   EXBar: {fileID: 0}
   LevelText: {fileID: 0}
+  EventSystem: {fileID: 0}
