@@ -23,6 +23,7 @@ public class PlayerControl : BaseUnit
     public Slider HealthBar;
     public Slider EXBar;
     public Text LevelText;
+    public GameObject EventSystem;
 
     // Start is called before the first frame update
     void Start()
@@ -93,7 +94,7 @@ public class PlayerControl : BaseUnit
         {
             var addXP = collision.gameObject.GetComponent<FoodComponent>().AddXP;
             CurrentXP=CurrentXP+ addXP;
-            Debug.Log(CurrentXP);
+            EventSystem.GetComponent<ElementInstantiator>().CurrentNumOfFood--;
             Destroy(collision.gameObject);
         }
     }

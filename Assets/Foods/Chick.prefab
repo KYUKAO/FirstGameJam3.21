@@ -91,7 +91,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3895292767812037604, guid: 14100b8e5a2556e45909db01d2460121, type: 3}
       propertyPath: m_Name
-      value: Food (2)
+      value: Chick
+      objectReference: {fileID: 0}
+    - target: {fileID: 3895292767812037606, guid: 14100b8e5a2556e45909db01d2460121, type: 3}
+      propertyPath: m_UsedByEffector
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3895292767812037609, guid: 14100b8e5a2556e45909db01d2460121, type: 3}
       propertyPath: AddXP

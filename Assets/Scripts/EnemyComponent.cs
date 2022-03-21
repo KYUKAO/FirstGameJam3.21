@@ -12,14 +12,25 @@ public class EnemyComponent : BaseUnit
     public float FindFoodSpeed;
     GameObject player;
     float timer = 0;
-    public float IntervalTime;
+    float timer2 = 0;
+    public float IntervalIdleTime;
+    public float IntervalChangeDirectionTime;
     int playerLevel;
+    float damage;
+    float nutrition;
+    PlayerControl playerControl;
+    public GameObject EventSystem;
     // Start is called before the first frame update
     void Start()
     {
+        Level = Random.Range(1, 9);
         rb = this.GetComponent<Rigidbody2D>();
         player = GameObject.FindWithTag("Player");
         playerLevel = player.GetComponent<PlayerControl>().Level;
+        playerControl = player.GetComponent<PlayerControl>();
+        timer2 = 0;
+        damage = 35;
+        nutrition = Level*100* playerControl.LevelUpRate / 2;
     }
     public enum EnemyState
     {
@@ -31,47 +42,54 @@ public class EnemyComponent : BaseUnit
     // Update is called once per frame
     void Update()
     {
-        switch (CurrentState)
+        //switch (CurrentState)
+        //{  
+        timer2 = timer2 += Time.deltaTime;
+        //    case EnemyState.Idle:
+        if (timer2 >= IntervalChangeDirectionTime)
         {
-            case EnemyState.Idle:
-                float rand1 = Random.Range(-1, 1.1f);
-                float rand2 = Random.Range(-1, 1.1f);
-                direction = new Vector2(rand1, rand2);
-                rb.velocity = direction * IdleSpeed;
-
-                return;
-            case EnemyState.HeadForPlayer:
-                timer += Time.deltaTime;
-                direction = (player.transform.position - this.transform.position).normalized;
-                rb.velocity = direction * ChaseSpeed;
-                if (timer >= IntervalTime)
-                {
-                    timer = 0;
-                    CurrentState = EnemyState.Idle;
-                }
-                return;
-            case EnemyState.HeadForFood:
-                rb.velocity = direction * FindFoodSpeed;
-                return;
+            timer2 = 0;
+            float rand1 = Random.Range(-1, 1.1f);
+            float rand2 = Random.Range(-1, 1.1f);
+            direction = new Vector2(rand1, rand2);
+            rb.velocity = direction * IdleSpeed;
         }
-        if (CurrentState == EnemyState.Idle)
-        {
-            Debug.Log("isInIdleState");
-            if (Level >= playerLevel)
-            {
-                if (FindPlayer(Vector2.right, ref direction) || FindPlayer(-Vector2.right, ref direction) || FindPlayer(Vector2.up, ref direction) || FindPlayer(-Vector2.up, ref direction))
 
-                {
-                    CurrentState = EnemyState.HeadForPlayer;
-                    Debug.Log("sdfsdf");
-                }
-            }
-            else if (FindFood(Vector2.right, ref direction) || FindFood(-Vector2.right, ref direction) || FindFood(Vector2.up, ref direction) || FindFood(-Vector2.up, ref direction))
-            {
-                CurrentState = EnemyState.HeadForFood;
-                Debug.Log("sdfsdf");
-            }
-        }
+                
+                //return;
+            //case EnemyState.HeadForPlayer:
+            //    timer += Time.deltaTime;
+            //    direction = (player.transform.position - this.transform.position).normalized;
+            //    rb.velocity = direction * ChaseSpeed;
+            //    if (timer >= IntervalTime)
+            //    {
+            //        timer = 0;
+            //        CurrentState = EnemyState.Idle;
+            //    }
+            //    return;
+            //case EnemyState.HeadForFood:
+            //    rb.velocity = direction * FindFoodSpeed;
+            //    return;
+        //}
+
+
+        //if (CurrentState == EnemyState.Idle)
+        //{
+        //    if (Level >= playerLevel)
+        //    {
+        //        if (FindPlayer(Vector2.right, ref direction) || FindPlayer(-Vector2.right, ref direction) || FindPlayer(Vector2.up, ref direction) || FindPlayer(-Vector2.up, ref direction))
+
+        //        {
+        //            CurrentState = EnemyState.HeadForPlayer;
+        //            Debug.Log("sdfsdf");
+        //        }
+        //    }
+        //    else if (FindFood(Vector2.right, ref direction) || FindFood(-Vector2.right, ref direction) || FindFood(Vector2.up, ref direction) || FindFood(-Vector2.up, ref direction))
+        //    {
+        //        CurrentState = EnemyState.HeadForFood;
+        //        Debug.Log("sdfsdf");
+        //    }
+        //}
     }
     bool FindFood(Vector2 rayDirection, ref Vector2 direction)
     {
@@ -124,8 +142,26 @@ public class EnemyComponent : BaseUnit
         if (collision.gameObject.GetComponent<FoodComponent>() != null)
         {
             direction = Vector2.zero;
+                        EventSystem.GetComponent<ElementInstantiator>().CurrentNumOfFood--;
             Destroy(collision.gameObject);
-            CurrentState = EnemyState.Idle;
+            //CurrentState = EnemyState.Idle;
+        }
+        else if(collision.gameObject.GetComponent<PlayerControl>() != null)
+        {
+            if (Level > playerLevel)
+            {
+                player.GetComponent<PlayerControl>().CurrentHealth -= damage;
+            }
+            else if (Level <= playerLevel)
+            {
+                player.GetComponent<PlayerControl>().CurrentXP += nutrition;
+                EventSystem.GetComponent<ElementInstantiator>().CurrentNumOfEnemy--;
+                Destroy(this.gameObject);
+            }
+        }
+        else
+        {
+            timer2 = IntervalChangeDirectionTime;
         }
     }
 }
