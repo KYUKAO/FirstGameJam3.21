@@ -19,11 +19,13 @@ public class PlayerControl : BaseUnit
 
 
     public GameObject LoseCondition;
+    public GameObject WinCondition;
 
     public Slider HealthBar;
     public Slider EXBar;
     public Text LevelText;
     public GameObject EventSystem;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +36,7 @@ public class PlayerControl : BaseUnit
     // Update is called once per frame
     void Update()
     {
+        ChageAppearance();
         HealthBar.value = CurrentHealth / MaxHealth;
         EXBar.value = CurrentXP / LevelXP;
         LevelText.text="LEVEL :"+Level;
@@ -88,6 +91,11 @@ public class PlayerControl : BaseUnit
             LevelXP *= LevelUpRate;
             Level++;
         }
+        if (Level > 9)
+        {
+            Level = 9;
+            Win();
+        }
 
         #endregion
     }
@@ -95,6 +103,11 @@ public class PlayerControl : BaseUnit
     {
         Debug.Log("Dead");
         LoseCondition.SetActive(true);
+    }
+    void Win()
+    {
+        Debug.Log("You Win!!");
+        WinCondition.SetActive(true);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
