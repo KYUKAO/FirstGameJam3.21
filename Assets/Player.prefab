@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6689747994613326373}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.23591553, y: 0.44661194, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.43735, y: 0.4353, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: bbb99258f2d17084c93fa846e4dd22a7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5d5244ffce037f4458ccbde1d8fe49b4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 1
@@ -154,6 +154,7 @@ MonoBehaviour:
   LevelXP: 100
   LevelUpRate: 2
   LoseCondition: {fileID: 0}
+  WinCondition: {fileID: 0}
   HealthBar: {fileID: 0}
   EXBar: {fileID: 0}
   LevelText: {fileID: 0}
