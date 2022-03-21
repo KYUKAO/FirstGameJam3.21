@@ -29,7 +29,7 @@ public class EnemyComponent : BaseUnit
         playerLevel = player.GetComponent<PlayerControl>().Level;
         playerControl = player.GetComponent<PlayerControl>();
         timer2 = 0;
-        damage = 35;
+        damage = 10;
         nutrition = Level*100* playerControl.LevelUpRate / 2;
     }
     public enum EnemyState
