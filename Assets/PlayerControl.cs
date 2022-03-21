@@ -6,6 +6,8 @@ public class PlayerControl : MonoBehaviour
 {
     Rigidbody2D rb;
     public float Speed;
+    public float IncreaseRate;
+    public float DecreaseRate;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,8 +17,6 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(0))
-        {
             Vector3 ms = Input.mousePosition;
             ms = Camera.main.ScreenToWorldPoint(ms);//获取鼠标相对位置
                                                     //对象的位置
@@ -32,6 +32,13 @@ public class PlayerControl : MonoBehaviour
             this.transform.eulerAngles = new Vector3(0, 0, fireangle);
             Vector2 direction = ms.normalized;
             rb.velocity = direction * Speed;
+        if (Input.GetMouseButton(0))
+        {
+            rb.velocity = direction * Speed * (1 + IncreaseRate);
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            rb.velocity = direction * Speed * (1 - DecreaseRate);
         }
     }
 }
