@@ -1,23 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PlayerControl : MonoBehaviour
+public class PlayerControl : BaseUnit
 {
     Rigidbody2D rb;
     public float Speed;
     public float IncreaseRate;
     public float DecreaseRate;
 
-    float currentHealth = 100;
-    float maxHealth = 100f;
+    public float CurrentHealth = 100;
+    public float MaxHealth = 100f;
 
-    float currentXP = 0;
+    public float CurrentXP = 0;
     public float LevelXP;
     public float LevelUpRate;
-    int level = 1;
+
 
     public GameObject LoseCondition;
+
+    public Slider HealthBar;
+    public Slider EXBar;
+    public Text LevelText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +33,9 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HealthBar.value = CurrentHealth / MaxHealth;
+        EXBar.value = CurrentXP / LevelXP;
+        LevelText.text="LEVEL :"+Level;
         #region MOVEMENT
         Vector3 ms = Input.mousePosition;
             ms = Camera.main.ScreenToWorldPoint(ms);//获取鼠标相对位置
@@ -54,21 +63,23 @@ public class PlayerControl : MonoBehaviour
         #endregion
 
         #region HealthSystem
-        if (currentHealth <= 0)
+        if (CurrentHealth <= 0)
         {
-            currentHealth = 0;
+            CurrentHealth = 0;
             Die();
         }
         #endregion
 
+  
         #region LevelUp
 
-        if (currentXP >= LevelXP)
+        if (CurrentXP >= LevelXP)
         {
-            currentXP = 0;
+            CurrentXP = 0;
             LevelXP *= LevelUpRate;
-            level++;
+            Level++;
         }
+
         #endregion
     }
     void Die()
@@ -81,8 +92,8 @@ public class PlayerControl : MonoBehaviour
         if (collision.gameObject.GetComponent<FoodComponent>() != null)
         {
             var addXP = collision.gameObject.GetComponent<FoodComponent>().AddXP;
-            currentXP=currentXP+ addXP;
-            Debug.Log(currentXP);
+            CurrentXP=CurrentXP+ addXP;
+            Debug.Log(CurrentXP);
             Destroy(collision.gameObject);
         }
     }
