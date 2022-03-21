@@ -101,13 +101,13 @@ public class PlayerControl : BaseUnit
     }
     void Die()
     {
-        Debug.Log("Dead");
         LoseCondition.SetActive(true);
+        Time.timeScale = 0;
     }
     void Win()
     {
-        Debug.Log("You Win!!");
         WinCondition.SetActive(true);
+        Time.timeScale = 0;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -127,7 +127,7 @@ public class PlayerControl : BaseUnit
             }
             var addXP = collision.gameObject.GetComponent<FoodComponent>().AddXP;
             CurrentXP=CurrentXP+ addXP;
-            EventSystem.GetComponent<ElementInstantiator>().CurrentNumOfFood--;
+            ElementInstantiator.CurrentNumOfFood--;
             Destroy(collision.gameObject);
         }
     }

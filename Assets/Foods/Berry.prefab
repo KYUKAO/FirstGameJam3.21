@@ -103,7 +103,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3895292767812037609, guid: 14100b8e5a2556e45909db01d2460121, type: 3}
       propertyPath: AddXP
-      value: 5
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3895292767812037611, guid: 14100b8e5a2556e45909db01d2460121, type: 3}
       propertyPath: m_RootOrder

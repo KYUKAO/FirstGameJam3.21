@@ -23,10 +23,11 @@ public class EnemyComponent : BaseUnit
     // Start is called before the first frame update
     void Start()
     {
-        Level = Random.Range(1, 9);
+        int randLevel = Random.Range(1, 9);
+        Level = randLevel;
+        ChageAppearance();
         rb = this.GetComponent<Rigidbody2D>();
         player = GameObject.FindWithTag("Player");
-        playerLevel = player.GetComponent<PlayerControl>().Level;
         playerControl = player.GetComponent<PlayerControl>();
         timer2 = 0;
         damage = 10;
@@ -139,10 +140,11 @@ public class EnemyComponent : BaseUnit
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        playerLevel = player.GetComponent<PlayerControl>().Level;
         if (collision.gameObject.GetComponent<FoodComponent>() != null)
         {
             direction = Vector2.zero;
-                        EventSystem.GetComponent<ElementInstantiator>().CurrentNumOfFood--;
+            ElementInstantiator.CurrentNumOfFood--;
             Destroy(collision.gameObject);
             //CurrentState = EnemyState.Idle;
         }
@@ -155,7 +157,7 @@ public class EnemyComponent : BaseUnit
             else if (Level <= playerLevel)
             {
                 player.GetComponent<PlayerControl>().CurrentXP += nutrition;
-                EventSystem.GetComponent<ElementInstantiator>().CurrentNumOfEnemy--;
+                ElementInstantiator.CurrentNumOfEnemy--;
                 Destroy(this.gameObject);
             }
         }
